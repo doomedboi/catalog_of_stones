@@ -4,9 +4,16 @@ const Router = require('express')
 const router = new Router()
 
 const adminRouter = require('./adminPanelRouter')
-const catalogRouter = require('./catalogRouter')
+const authorRouter = require('./authorRouter')
+const placeholderRouter = require('./placeholderRouter')
+const selectionRouter = require('./selectionpPlaceRouter')
+const stoneRouter = require('./stoneRouter')
 
-router.use('/catalog', catalogRouter)
+
 router.use('/admin', adminRouter)
+router.use('/author', authorRouter)
+router.use('/placeholder', placeholderRouter)
+router.use('/selection', selectionRouter)
+router.use('/stone', stoneRouter)
 
 module.exports = router
