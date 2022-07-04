@@ -3,7 +3,7 @@
 const Router = require('express')
 const router = new Router()
 
-const adminRouter = require('./adminPanelRouter')
+const adminRouter = require('./adminRouter')
 const authorRouter = require('./authorRouter')
 const placeholderRouter = require('./placeholderRouter')
 const selectionRouter = require('./selectionpPlaceRouter')
