@@ -12,7 +12,7 @@ const City = sequelize.define('city', {
     data: {type: DataTypes.STRING, unique: true}
 })
 
-const Author = sequelize.define('author', {
+const Author = sequelize.define('authors', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     data: {type: DataTypes.STRING, unique: true}
 })
