@@ -1,9 +1,15 @@
-body, h1 {
+@import "stone-info.css";
+html, body {
+    min-height: 100%;
+}
+
+body, html {
     margin: 0;
     padding: 0;
     background-color: rgba(0, 0, 0, 0.05);
 }
-.header {
+
+.header__mainPage {
     width: 100%;
     height: 200px;
     background-image: url("../assets/stone-header.jpg");
@@ -70,6 +76,10 @@ body, h1 {
     margin: 0 auto;
 }
 
+.container {
+    min-height: 100%;
+}
+
 .main__cardZone {
     display: flex;
     flex-wrap: wrap;
@@ -95,3 +105,5 @@ body, h1 {
 .footer__down {
     background-color: rgba(0, 0, 0, 0.05);
 }
+
+
