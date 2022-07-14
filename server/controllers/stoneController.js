@@ -2,9 +2,7 @@ const uuid = require('uuid')
 const path = require('path')
 const errorHandler = require('../errorHandling/errorHandling')
 const {Stone, Author, PlaceHolder, City} = require('../models/models')
-const {AuthorController} = require('../controllers/authorController')
-const {PlaceController} = require('../controllers/placeholderController')
-const {SelectionController} = require('../controllers/selectionPlaceController')
+
 
 class StoneController {
     async create(req, res, next) {
@@ -56,7 +54,8 @@ class StoneController {
             const cityId = cityCount.getDataValue('id')
             const stone = await Stone.create(
                 {placeid , authorid,
-                    description, cityId, img: fileName}
+                    description, cityId, img: fileName, stone_city: city,
+                        stone_place: place, stone_author: author}
             )
             return res.json(stone)
         } catch (e) {

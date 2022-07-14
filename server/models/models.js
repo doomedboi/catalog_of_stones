@@ -25,12 +25,15 @@ const PlaceHolder = sequelize.define('placeholder', {
 const Stone = sequelize.define('stone', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     description: {type: DataTypes.STRING},
-    img: {type: DataTypes.STRING, allowNull: false}
+    img: {type: DataTypes.STRING, allowNull: false},
+    stone_city: {type: DataTypes.STRING},
+    stone_place: {type: DataTypes.STRING},
+    stone_author: {type: DataTypes.STRING}
 })
 
 Stone.hasMany(PlaceHolder)
-PlaceHolder.belongsTo(Stone)
 Stone.hasMany(Author)
+PlaceHolder.belongsTo(Stone)
 Author.belongsTo(Stone)
 Stone.hasOne(City)
 City.belongsTo(Stone)
