@@ -1,7 +1,10 @@
 const uuid = require('uuid')
 const path = require('path')
 const errorHandler = require('../errorHandling/errorHandling')
-const {Stone} = require('../models/models')
+const {Stone, Author, PlaceHolder, City} = require('../models/models')
+const {AuthorController} = require('../controllers/authorController')
+const {PlaceController} = require('../controllers/placeholderController')
+const {SelectionController} = require('../controllers/selectionPlaceController')
 
 class StoneController {
     async create(req, res, next) {
@@ -20,10 +23,61 @@ class StoneController {
         }
     }
 
+    async create2(req, res, next) {
+
+        try {
+            let {place, author, description, city} = req.body
+            const {img} = req.files
+
+            let placeCount = await PlaceHolder.findOne({where: {data : place}})
+            let authorCount = await Author.findOne({where: {data: author}})
+            let cityCount = await City.findOne({where : {data: city}})
+
+            if (placeCount === null) {
+                console.log("Place is empty")
+                await PlaceHolder.create({data : place})
+            }
+            if (authorCount === null) {
+                await Author.create({data: author})
+            }
+            if (cityCount === null) {
+                await City.create({data: city})
+            }
+
+            placeCount = await PlaceHolder.findOne({where: {data : place}})
+            authorCount = await Author.findOne({where: {data: author}})
+            cityCount = await City.findOne({where : {data: city}})
+
+            let fileName = uuid.v4() + ".jpg"
+            img.mv(path.resolve(__dirname, '..', 'static', fileName))
+
+            const placeid = placeCount.getDataValue('id')
+            const authorid = authorCount.getDataValue('id')
+            const cityId = cityCount.getDataValue('id')
+            const stone = await Stone.create(
+                {placeid , authorid,
+                    description, cityId, img: fileName}
+            )
+            return res.json(stone)
+        } catch (e) {
+            next(errorHandler.badRequest(e.message))
+        }
+    }
+
     async getOne(req, res) {
         const {id} = req.params
         const stone = await Stone.findOne({where: {id}})
         return res.json(stone)
+    }
+
+    async delete(req, res, next) {
+        try {
+            let {id} = req.body
+            const resp = await Stone.destroy({ where: { id: id } })
+            return res.json('successfully')
+        } catch (e) {
+            next(errorHandler.badRequest(e.message))
+        }
     }
 
     async getAll(req, res) {

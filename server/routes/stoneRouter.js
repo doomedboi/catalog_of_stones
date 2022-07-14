@@ -6,6 +6,7 @@ const autchCheck = require('../middleware/checkAuth')
 router.post('/', autchCheck, stoneController.create)
 router.get('/', stoneController.getAll)
 router.get('/:id', stoneController.getOne)
-
+router.post('/remove', autchCheck, stoneController.delete)
+router.post('/create2', autchCheck, stoneController.create2)
 
 module.exports = router
